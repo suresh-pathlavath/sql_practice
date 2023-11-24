@@ -1,9 +1,13 @@
 
 
 
+<<<<<<< HEAD
 SELECT * from restaurant_members;
 SELECT * from restaurant_menu;
 SELECT * from restaurant_sales;
+=======
+-- data and script source 
+>>>>>>> 53164762c3071e638ee335f6d494b8f5a03ae39e
 
 /*
 https://8weeksqlchallenge.com/case-study-1/
@@ -164,5 +168,16 @@ https://chat.openai.com/share/b8d59376-123f-464f-89a7-d491c5c43e22
 
 
 --09. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+<<<<<<< HEAD
 --10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
 
+=======
+
+
+
+--10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+
+SELECT * from restaurant_members;
+SELECT * from restaurant_menu;
+SELECT * from restaurant_sales;
+>>>>>>> 53164762c3071e638ee335f6d494b8f5a03ae39e
