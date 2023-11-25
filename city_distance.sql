@@ -1,14 +1,21 @@
-with cte as (
-    
-SELECT  a.source, a.destination, a.distance,
-row_number() over() as id
-from city_distance a 
-left join city_distance b on a.source = b.destination
+-- https://ik.imagekit.io/suresh29/sql_practice/filtering_cities.pdf
+WITH cte
+     AS (SELECT a.source,
+                a.destination,
+                a.distance,
+                Row_number()
+                  OVER() AS id
+         FROM   city_distance a
+                LEFT JOIN city_distance b
+                       ON a.source = b.destination)
+SELECT t2.source,
+       t2.destination,
+       t2.distance
+FROM   cte AS t1
+       LEFT JOIN cte AS t2
+              ON t1.source = t2.destination
+                 AND t1.id < t2.id
+WHERE  t2.source IS NOT NULL;
 
-)
-
-
-SELECT t2.source, t2.destination, t2.distance from cte as t1
-left join cte as t2 on t1.source = t2.destination and t1.id < t2.id 
-where t2.source is not null;
-SELECT * from city_distance;
+SELECT *
+FROM   city_distance; 
