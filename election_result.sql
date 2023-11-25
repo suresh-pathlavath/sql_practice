@@ -1,16 +1,31 @@
-with cte as (
+-- party wise winning candidates
+-- https://ik.imagekit.io/suresh29/sql_practice/election_results.pdf
+WITH cte
+     AS (SELECT c.id                            AS candidate,
+                c.party                         AS party,
+                r.constituency_id,
+                r.votes,
+                Dense_rank()
+                  OVER(
+                    partition BY constituency_id
+                    ORDER BY Max(r.votes) DESC) AS ranking
+         FROM   election_candidates AS c
+                LEFT JOIN election_results AS r
+                       ON c.id = r.candidate_id
+         GROUP  BY 1,
+                   2,
+                   3,
+                   4)
+SELECT party,
+       Count(1) AS candidates_count
+FROM   cte
+WHERE  ranking = 1
+GROUP  BY 1;
 
-    SELECT c.id as candidate, c.party as party, r.constituency_id, r.votes,
-    dense_rank() over(partition by constituency_id order by max(r.votes) desc) as ranking
+SELECT *
+FROM   election_results
+ORDER  BY constituency_id;
 
-    from election_candidates as c 
-    left join election_results as r 
-    on c.id = r.candidate_id 
-    group by 1,2,3,4
-)
-SELECT party, count(1) as candidates_count
-from cte where ranking = 1 group by 1;
-
-select * from election_results order by constituency_id;
-select * from election_candidates;
+SELECT *
+FROM   election_candidates;
 /* https://techtfq.com/blog/solving-sql-queries-from-business-analyst-interview */
