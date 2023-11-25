@@ -1,3 +1,5 @@
+-- remove Garbage values and show meaningful comments
+-- https://ik.imagekit.io/suresh29/sql_practice/meaningful_comments.pdf
 WITH cte
      AS (SELECT comment,
                 translation,
