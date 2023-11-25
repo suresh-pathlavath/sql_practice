@@ -1,5 +1,6 @@
 -- Display Highest and Lowest Salary in each department
 
+-- https://ik.imagekit.io/suresh29/sql_practice/department_high_low_salary.pdf
 
 WITH cte
      AS (SELECT *,
@@ -20,9 +21,10 @@ SELECT *
 FROM   cte;
 SELECT * FROM   practice_employee; 
 
+
 --- Q3 : Find actual distance car travelled 
 --- Find actual distance --- 
-
+-- https://ik.imagekit.io/suresh29/sql_practice/cars_daily_distance_travelled.pdf
 
 WITH car_travelled
      AS (SELECT cars,
@@ -32,15 +34,15 @@ WITH car_travelled
                   OVER(
                     partition BY cars ) AS lag_distance
          FROM   car_travels)
-SELECT *,
-       cumulative_distance - lag_distance AS distnace_travelled
+SELECT cars,days, cumulative_distance,
+       cumulative_distance - lag_distance AS actual_distance_travelled
 FROM   car_travelled;
 
 SELECT *
 FROM   car_travels;
 
 ---  Convert A to B city or B to A city to just 1 record of A to B city --- 
-
+--  https://ik.imagekit.io/suresh29/sql_practice/filtering_cities.pdf
 WITH cte4
      AS (SELECT Row_number()
                   OVER() AS id,
@@ -74,6 +76,8 @@ name.
 4. Otherwise, the Final Status is AWAITING SUBMISSION.
 
 */
+
+-- https://ik.imagekit.io/suresh29/sql_practice/pizza_delivery_status.pdf
 
 SELECT DISTINCT cust_name,
                 'Complete' AS status
@@ -110,6 +114,7 @@ WHERE  d.status = 'created'
                        FROM   cust_orders AS d2
                        WHERE  d.cust_name = d2.cust_name
                               AND d2.status IN ( 'delivered', 'submitted' ));
+
 
 SELECT *
 FROM   cust_orders; 
