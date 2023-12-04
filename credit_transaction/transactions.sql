@@ -30,3 +30,4 @@ group by DATE_FORMAT(TRANS_DATE, '%Y-%m'),
      
      url: https://media.licdn.com/dms/image/D4D22AQH1cx0-8bRSsw/feedshare-shrink_1280/0/1696611932870?e=1700697600&v=beta&t=bNi_Kbpj01MzuM_ucMttsyyDxz7f-_QXKz3qBZX0Ft4
      */
+
