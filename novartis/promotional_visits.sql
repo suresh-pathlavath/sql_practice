@@ -1,8 +1,19 @@
-with cte as (SELECT Promotional_visits,
- Total_Cost_of_Promotion, lag(Total_Cost_of_Promotion) OVER() as lag_cost,
- Total_Return, lag(Total_Return) OVER() as lag_return
- FROM novartis_promotions)
- SELECT Promotional_visits, Total_Cost_of_Promotion, Total_Return,
- Total_Cost_of_Promotion - lag(Total_Cost_of_Promotion) OVER() as marginal_cost,
- Total_Return -  lag(Total_Return) OVER() as marginal_return
- FROM cte
+WITH cte
+     AS (SELECT promotional_visits,
+                total_cost_of_promotion,
+                Lag(total_cost_of_promotion)
+                  OVER() AS lag_cost,
+                total_return,
+                Lag(total_return)
+                  OVER() AS lag_return
+         FROM   novartis_promotions)
+SELECT promotional_visits,
+       total_cost_of_promotion,
+       total_return,
+       total_cost_of_promotion - Lag(total_cost_of_promotion)
+                                   OVER() AS marginal_cost,
+       total_return - Lag(total_return)
+                        OVER()            AS marginal_return
+FROM   cte ;
+
+SELECT * FROM    novartis_promotions;
