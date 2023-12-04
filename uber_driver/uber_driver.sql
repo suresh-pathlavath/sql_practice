@@ -19,3 +19,6 @@ GROUP BY 1
     /*
      https://www.youtube.com/watch?v=eayyD51fIVY&ab_channel=AnkitBansal
      */
+SELECT *     FROM uber_driver;
+
+    
