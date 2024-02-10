@@ -1,3 +1,4 @@
+-- problem statement: write a quary to find the total rides and profit for each driver
 WITH cte as (
     SELECT id,
         start_time,
