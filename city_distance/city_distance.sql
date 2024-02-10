@@ -2,6 +2,7 @@
 --method 1 
 SELECT * FROM   travel_data;
 
+
 WITH cte1
      AS (SELECT customer,
                 start_loc        AS column_name,
