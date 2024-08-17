@@ -40,4 +40,7 @@ INSERT INTO city_population (state, city, population) VALUES ('maharashtra', 'na
 INSERT INTO city_population (state, city, population) VALUES ('karnataka', 'bangalore', 900);
 INSERT INTO city_population (state, city, population) VALUES ('karnataka', 'mysore', 400);
 INSERT INTO city_population (state, city, population) VALUES ('karnataka', 'mangalore', 200);
+
+credit: Ankit Bansal (EXL Analytics SQL Interview Question | 2 Different Ways of using Window Functions)
+
 */
