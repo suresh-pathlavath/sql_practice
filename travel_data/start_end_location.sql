@@ -54,5 +54,5 @@ INSERT INTO travel_data (customer, start_loc, end_loc) VALUES
  ('c3', 'Lucknow', 'Agra'),
  ('c3', 'Agra', 'Jaipur'),
  ('c3', 'Jaipur', 'Kochi');
-
+Credit: Ankit Bansal  | Solving a Leetcode DSA Problem with SQL | Advanced SQL for Analytics 
  */
