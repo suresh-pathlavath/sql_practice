@@ -1,34 +1,41 @@
 -- write a query to get the winner user id and other details when they invest money and reward proportionally
 
-with cte1 as (SELECT p.user_id as user_id, 
-p.poll_id as poll_id,
-p.poll_option_id as options, 
-p.amount as amount,
-pa.correct_option_id as correct_answer,
-sum(p.amount) over(PARTITION BY p.poll_id) as looser_total_amount
-from polls as p 
-LEFT JOIN poll_answers AS pa 
-ON p.poll_id = pa.poll_id
-WHERE p.poll_option_id != pa.correct_option_id)
-
-,cte2 as (
-    SELECT p.user_id as user_id, 
-p.poll_id as poll_id,
-p.amount as amount,
-pa.correct_option_id as correct_answer,
-sum(p.amount) over(PARTITION BY p.poll_id) as winner_total_amount
-from polls as p 
-LEFT JOIN poll_answers AS pa 
-ON p.poll_id = pa.poll_id
-WHERE p.poll_option_id = pa.correct_option_id 
+WITH cte1 AS (
+    SELECT 
+        p.user_id AS user_id, 
+        p.poll_id AS poll_id,
+        p.poll_option_id AS options, 
+        p.amount AS amount,
+        pa.correct_option_id AS correct_answer,
+        SUM(p.amount) OVER (PARTITION BY p.poll_id) AS looser_total_amount
+    FROM polls AS p 
+    LEFT JOIN poll_answers AS pa 
+    ON p.poll_id = pa.poll_id
+    WHERE p.poll_option_id != pa.correct_option_id
+),
+cte2 AS (
+    SELECT 
+        p.user_id AS user_id, 
+        p.poll_id AS poll_id,
+        p.amount AS amount,
+        pa.correct_option_id AS correct_answer,
+        SUM(p.amount) OVER (PARTITION BY p.poll_id) AS winner_total_amount
+    FROM polls AS p 
+    LEFT JOIN poll_answers AS pa 
+    ON p.poll_id = pa.poll_id
+    WHERE p.poll_option_id = pa.correct_option_id
 )
-SELECT DISTINCT c2.user_id, c2.amount,
- c2.poll_id,c1.looser_total_amount,c2.winner_total_amount as invested,
- c2.amount/c2.winner_total_amount as proportion,
- round((c2.amount/c2.winner_total_amount)* c1.looser_total_amount,0) as reward 
- FROM cte1 as c1 INNER JOIN cte2 as c2 
-ON c1.poll_id = c2.poll_id
-
+SELECT DISTINCT 
+    c2.user_id, 
+    c2.amount,
+    c2.poll_id,
+    c1.looser_total_amount,
+    c2.winner_total_amount AS invested,
+    c2.amount / c2.winner_total_amount AS proportion,
+    ROUND((c2.amount / c2.winner_total_amount) * c1.looser_total_amount,0) AS reward 
+FROM cte1 AS c1
+INNER JOIN cte2 AS c2
+ON c1.poll_id = c2.poll_id;
 /*create table polls
 (
 user_id varchar(4),
