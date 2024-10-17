@@ -1,10 +1,13 @@
 SELECT * FROM sales_data;
-SELECT YEAR(bill_date) as year,
-left(date_format(bill_date, "%M"),3) as monthly,total,
-sum(total) OVER(ORDER BY date(bill_date), MONTH(bill_date)) as cum_sum,
-sum(total) OVER(ORDER BY bill_date ROWS BETWEEN UNBOUNDED PRECEDING and CURRENT ROW) as roll_sum,
-sum(total) OVER(PARTITION BY YEAR(bill_date), MONTH(bill_date) ORDER BY bill_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as monthly_cum_sum
-FROM sales_data; 
+
+SELECT 
+    YEAR(bill_date) AS year,
+    LEFT(DATE_FORMAT(bill_date, "%M"), 3) AS monthly,
+    SUM(total) OVER (ORDER BY bill_date, MONTH(bill_date)) AS cum_sum,
+    SUM(total) OVER (ORDER BY bill_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS roll_sum,
+    SUM(total) OVER (PARTITION BY YEAR(bill_date), MONTH(bill_date) ORDER BY bill_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS monthly_cum_sum
+FROM sales_data;
+
 
 /*
 
