@@ -59,5 +59,5 @@ INSERT INTO projects (p_id, e_id, p_name, p_hours) VALUES
 (103, 3, 'Project A', 120),
 (104, 4, 'Project C', 130),
 (105, 5, 'Project B', 140);
-
+Credit: Vibhanshu G | LinkedIn
 */
